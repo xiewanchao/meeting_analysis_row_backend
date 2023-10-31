@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fdc0938c-9e38-452d-a0c5-a786d344e1ca" name="Default Changelist" comment="谢万超 10.11">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="fdc0938c-9e38-452d-a0c5-a786d344e1ca" name="Default Changelist" comment="谢万超 10.31">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flask_meeting_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask_meeting_service.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +132,7 @@
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
         <option name="accountId" value="6828d94a-faab-4ee9-b89e-abbc234a5bbb" />
-        <option name="url" value="git@github.com:baobaopandas/meeting_analysis_row_backend.git" />
+        <option name="url" value="https://github.com/xiewanchao/meeting_analysis_row_backend.git" />
       </UrlAndAccount>
     </option>
   </component>
@@ -365,7 +363,7 @@
       <workItem from="1696763578193" duration="5175000" />
       <workItem from="1696836222317" duration="9517000" />
       <workItem from="1697003018154" duration="3217000" />
-      <workItem from="1698672116032" duration="10475000" />
+      <workItem from="1698672116032" duration="11214000" />
     </task>
     <task id="LOCAL-00001" summary="谢万超 10.11">
       <option name="closed" value="true" />
@@ -383,7 +381,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697007477097</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="谢万超 10.31">
+      <option name="closed" value="true" />
+      <created>1698766951032</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1698766951033</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView">
@@ -421,10 +427,22 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="create test" />
     <MESSAGE value="谢万超 10.11" />
-    <option name="LAST_COMMIT_MESSAGE" value="谢万超 10.11" />
+    <MESSAGE value="谢万超 10.31" />
+    <option name="LAST_COMMIT_MESSAGE" value="谢万超 10.31" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/meeting_analysis_row_backend$token.coverage" NAME="token Coverage Results" MODIFIED="1694446325351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/openmmlab" />
