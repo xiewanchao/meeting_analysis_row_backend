@@ -3,7 +3,7 @@
   <component name="Black">
     <option name="executionMode" value="BINARY" />
     <option name="pathToExecutable" value="$USER_HOME$/opt/anaconda3/bin/black" />
-    <option name="sdkUUID" value="73f086e5-3d45-435f-90d5-819bb9a5cb37" />
+    <option name="sdkName" value="meeting" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="meeting" project-jdk-type="Python SDK" />
   <component name="PyCharmProfessionalAdvertiser">
