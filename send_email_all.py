@@ -64,7 +64,7 @@ def send_email(subject, receiver, message, attachment=None):
     server.ehlo()
     # server.starttls()
     server.login(mail_user, mail_pass)
-    server.sendmail(mail_user, receiver.split(','), msg.as_string())
+    server.sendmail(mail_user, receiver, msg.as_string())
     server.quit()
 
 

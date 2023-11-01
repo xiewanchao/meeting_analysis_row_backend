@@ -456,13 +456,13 @@ class invitePati(Resource):
                     email = result[1]
                     name_email_dict[name] = email
                     break  # 找到匹配的email后，可以跳出内层循环，继续处理下一个name
-        print(name_email_dict)
         meeting = getCurrentmeeting.post(self)['reslist'][0]
         theme = meeting['theme']
         hoster = meeting['hoster']
         date = meeting['date'].split(' ')[0]
         link = meeting['link']
         number = meeting['number']
+        print(name_email_dict)
         sendInvite(name_email_dict, "http://124.222.217.145:8082",theme,hoster,date,link,number)
 
         # 打印name和email对应关系
