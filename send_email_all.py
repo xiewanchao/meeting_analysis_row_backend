@@ -96,7 +96,7 @@ def sendInvite(namelist,url,theme,hoster,selectDay,link,number):
     
     for name, email in namelist.items():
         subject = theme + "会议邀请"
-        message = name + "您好：\n  您被主持人" + hoster +"邀请参加" + theme + "组会，会议时间为" + selectDay + "下午的6点半。\n您可以填写是否发言以及上传pdf等信息，为主持人更好安排会议流程,\n腾讯会议链接为：" + link + "\n会情分析系统链接为： " + url+ "  (请在会情分析系统上传您的议程)\n"+ "腾讯会议会议号为：  "+ number + "\n感谢您的参与。"
+        message = name + "您好：\n  主持人" + hoster +"邀请您参加" + theme + "讨论班，会议时间为" + selectDay + "。\n您可以填写是否发言以及上传pdf等信息，为主持人更好安排会议流程,\n腾讯会议链接为：" + link + "\n会情分析系统链接为： " + url+ "  (请在会情分析系统上传您的议程)\n"+ "腾讯会议会议号为：  "+ number + "\n感谢您的参与。"
         send_email(subject, email, message)
 
 if __name__ == '__main__':

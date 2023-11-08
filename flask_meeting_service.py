@@ -417,19 +417,6 @@ class invitePati(Resource):
 
 
         pati = dic['pati']
-        # data = request.files
-        # print("start...")
-        # print(type(data))
-        # file = data['file']
-        # print(file.filename)
-        # print(request.headers)
-        # # 文件写入磁盘
-        # file.save(file.filename)
-        # print("end...")
-
-        # print(pati)
-        # patistr = ','.join(pati)
-        #
         try:
             con = pymssql.connect(server=host, user=user, password=password, database=database)
             cur = con.cursor()
@@ -457,9 +444,11 @@ class invitePati(Resource):
                     name_email_dict[name] = email
                     break  # 找到匹配的email后，可以跳出内层循环，继续处理下一个name
         meeting = getCurrentmeeting.post(self)['reslist'][0]
-        theme = meeting['theme']
-        hoster = meeting['hoster']
-        date = meeting['date'].split(' ')[0]
+        print("meeting____")
+        print(meeting)
+        theme = meeting['Theme']
+        hoster = meeting['Hoster']
+        date = meeting['Date']
         link = meeting['link']
         number = meeting['number']
         print(name_email_dict)
