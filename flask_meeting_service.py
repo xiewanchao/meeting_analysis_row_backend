@@ -517,6 +517,31 @@ class newProcess(Resource):
 
         return response
 
+class delProcess(Resource):
+    def get(self):
+
+        return "get ok"
+
+    def post(self):
+        ctx = _request_ctx_stack.top.copy()
+        new_request = ctx.request
+        dic = json.loads(new_request.data.decode('utf-8'))
+        id = dic['id']
+        try:
+            con = pymssql.connect(server=host, user=user, password=password, database=database)
+            cur = con.cursor()
+            sql = "DELETE FROM M_MeetingProcess WHERE id = " + str(id)
+            cur.execute(sql)
+            con.commit()
+            con.close()
+        except Exception as e:
+            raise e
+        response = {
+            "success": 1,
+        }
+
+        return response
+
 
 class newpati(Resource):
     def get(self):
@@ -572,12 +597,21 @@ class getPati(Resource):
             cur = con.cursor()
             sql ="SELECT * FROM M_paticipater ORDER BY CASE role WHEN '教师' THEN 1 WHEN '博士生' THEN 2 WHEN '研究生' THEN 3 WHEN '本科生' THEN 4 ELSE 5 END ASC"
             cur.execute(sql)
+            # resList = cur.fetchall()
+            # con.commit()
+            # con.close()
+            # steps = []
+            # for (name, stuid,role,ispermanent,id,pd,email,remark) in resList:
+            #     step = {"id": int(id), "name": name, "role": role}
+            #     steps.append(step)
+            # print(steps)
             resList = cur.fetchall()
+            column_names = [desc[0] for desc in cur.description]
             con.commit()
             con.close()
             steps = []
-            for (name, stuid,role,ispermanent,id,pd,email,remark) in resList:
-                step = {"id": int(id), "name": name, "role": role}
+            for row in resList:
+                step = {column_names[i]: row[i] for i in range(len(column_names))}
                 steps.append(step)
             print(steps)
         except Exception as e:
@@ -632,14 +666,15 @@ class getListorymeeting(Resource):
         try:
             con = pymssql.connect(server=host, user=user, password=password, database=database)
             cur = con.cursor()
-            sql ="select Theme,Date,Hoster,id,pati,url from M_Meeting order by id asc"
+            sql ="select * from M_Meeting order by id desc"
             cur.execute(sql)
             resList = cur.fetchall()
+            column_names = [desc[0] for desc in cur.description]
             con.commit()
             con.close()
             steps = []
-            for (Theme, Date,Hoster,id,pati,url) in resList:
-                step = {"id": id, "theme": Theme, "date": str(Date), "hoster": Hoster, "pati": str(pati), "url" : str(url)}
+            for row in resList:
+                step = {column_names[i]: str(row[i]) for i in range(len(column_names))}
                 steps.append(step)
             print(steps)
         except Exception as e:
@@ -667,13 +702,14 @@ class getCurrentmeeting(Resource):
             sql ="select TOP 1 Theme,Date,Hoster,id,pati,url,link,number from M_Meeting order by id desc "
             cur.execute(sql)
             resList = cur.fetchall()
+            column_names = [desc[0] for desc in cur.description]
             con.commit()
             con.close()
             steps = []
-            for (Theme, Date,Hoster,id,pati,url,link,number) in resList:
-                step = {"id": id, "theme": Theme, "date": str(Date), "hoster": Hoster, "pati": str(pati), "url" : str(url), "link" : str(link), "number" : str(number)}
+            for row in resList:
+                step = {column_names[i]: str(row[i]) for i in range(len(column_names))}
                 steps.append(step)
-            # print(steps)
+            print(steps)
         except Exception as e:
             raise e
         response = {
@@ -749,18 +785,15 @@ class getMeetingProcessData(Resource):
         try:
             con = pymssql.connect(server=host, user=user, password=password, database=database)
             cur = con.cursor()
-            sql ="select * from M_MeetingProcess where meetingid = '" + str(meetingid) + "' "
+            sql ="select * from M_MeetingProcess where meetingid = '" + str(meetingid) + "' order by id asc "
             cur.execute(sql)
             resList = cur.fetchall()
+            column_names = [desc[0] for desc in cur.description]
             con.commit()
             con.close()
             steps = []
-            for (curmeeting, topicName,time,people,role, meetingid,participation,participation_mode,
-                 project,experiment,algorithm,paper,nextweekplan,completion) in resList:
-                step = {"topicName": topicName,"time":time,"people":people,"role":role,
-                        "participation": participation, "participation_mode":participation_mode,
-                        "project":project,"experiment":experiment,"algorithm":algorithm,"paper":paper,
-                        "nextweekplan":nextweekplan,"completion":completion}
+            for row in resList:
+                step = {column_names[i]: row[i] for i in range(len(column_names))}
                 steps.append(step)
             print(steps)
         except Exception as e:
@@ -897,6 +930,7 @@ api.add_resource(newmeeting, '/newmeeting')
 api.add_resource(invitePati, '/invitePati')
 api.add_resource(getCurrentmeeting,'/getCurrentmeeting')
 api.add_resource(newProcess,'/newProcess')
+api.add_resource(delProcess,'/delProcess')
 api.add_resource(getMeetingProcessData,'/getMeetingProcessData')
 api.add_resource(getCurrAndNextHost,'/getCurrAndNextHost')
 api.add_resource(addHost,'/addHost')
