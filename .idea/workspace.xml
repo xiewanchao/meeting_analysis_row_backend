@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fdc0938c-9e38-452d-a0c5-a786d344e1ca" name="Default Changelist" comment="谢万超 10.31">
+    <list default="true" id="fdc0938c-9e38-452d-a0c5-a786d344e1ca" name="Default Changelist" comment="发邮件bug修复">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flask_meeting_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask_meeting_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/send_email_all.py" beforeDir="false" afterPath="$PROJECT_DIR$/send_email_all.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -189,21 +192,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/coder/Project/eblab_Project/meetint_analysis/meeting_analysis_row_backend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.flask_meeting_service.executor": "Run",
+    "Python.send_email_all.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/Users/coder/Project/eblab_Project/meetint_analysis/meeting_analysis_row_backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlserver"
+    ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\SongJee\PycharmProjects\meeting_vision_service" />
@@ -212,9 +224,17 @@
       <recent name="$PROJECT_DIR$/openmmlab" />
     </key>
   </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="PythonConfigurationType" />
+      </set>
+    </option>
+  </component>
   <component name="RunManager" selected="Python.flask_meeting_service">
     <configuration name="flask_meeting_service" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="meeting_vision_service" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -235,8 +255,9 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="send_email_all" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="meeting_vision_service" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -248,7 +269,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/send_email_all.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -259,6 +280,7 @@
     </configuration>
     <configuration name="token" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="meeting_vision_service" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -281,6 +303,7 @@
     </configuration>
     <configuration name="transcribe" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="meeting_vision_service" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -303,6 +326,7 @@
     </configuration>
     <configuration name="yolox" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="meeting_vision_service" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -324,21 +348,28 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.send_email_all" />
       <item itemvalue="Python.flask_meeting_service" />
       <item itemvalue="Python.transcribe" />
       <item itemvalue="Python.token" />
       <item itemvalue="Python.yolox" />
-      <item itemvalue="Python.test" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.flask_meeting_service" />
+        <item itemvalue="Python.send_email_all" />
         <item itemvalue="Python.yolox" />
         <item itemvalue="Python.transcribe" />
         <item itemvalue="Python.token" />
-        <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-7a29c1521ef0-c986f194a52a-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.11799.298" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -366,7 +397,17 @@
       <workItem from="1696836222317" duration="9517000" />
       <workItem from="1697003018154" duration="3217000" />
       <workItem from="1698672116032" duration="12188000" />
-      <workItem from="1698804054650" duration="794000" />
+      <workItem from="1698804054650" duration="1046000" />
+      <workItem from="1698813708825" duration="1075000" />
+      <workItem from="1698839541092" duration="1583000" />
+      <workItem from="1698994472359" duration="9931000" />
+      <workItem from="1699423946067" duration="2104000" />
+      <workItem from="1699429246746" duration="1251000" />
+      <workItem from="1700024516783" duration="28000" />
+      <workItem from="1701847891739" duration="504000" />
+      <workItem from="1701866034230" duration="693000" />
+      <workItem from="1703057062916" duration="2038000" />
+      <workItem from="1703346409944" duration="12906000" />
     </task>
     <task id="LOCAL-00001" summary="谢万超 10.11">
       <option name="closed" value="true" />
@@ -400,7 +441,31 @@
       <option name="project" value="LOCAL" />
       <updated>1698770281656</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="谢万超 11.01">
+      <option name="closed" value="true" />
+      <created>1698805034804</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1698805034804</updated>
+    </task>
+    <task id="LOCAL-00006" summary="谢万超 11.01">
+      <option name="closed" value="true" />
+      <created>1699423684981</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1699423684981</updated>
+    </task>
+    <task id="LOCAL-00007" summary="发邮件bug修复">
+      <option name="closed" value="true" />
+      <created>1699425871365</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1699425871365</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TodoView">
@@ -453,19 +518,22 @@
     <MESSAGE value="create test" />
     <MESSAGE value="谢万超 10.11" />
     <MESSAGE value="谢万超 10.31" />
-    <option name="LAST_COMMIT_MESSAGE" value="谢万超 10.31" />
+    <MESSAGE value="谢万超 11.01" />
+    <MESSAGE value="发邮件bug修复" />
+    <option name="LAST_COMMIT_MESSAGE" value="发邮件bug修复" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/meeting_analysis_row_backend$token.coverage" NAME="token Coverage Results" MODIFIED="1694446325351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/openmmlab" />
-    <SUITE FILE_PATH="coverage/meeting_analysis_row_backend$test.coverage" NAME="test Coverage Results" MODIFIED="1694445342910" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/meeting_analysis_row_backend$wisper.coverage" NAME="wisper Coverage Results" MODIFIED="1694505801366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/wisper" />
-    <SUITE FILE_PATH="coverage/meeting_analysis_row_backend$whisper.coverage" NAME="transcribe Coverage Results" MODIFIED="1694506938862" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/whisper" />
-    <SUITE FILE_PATH="coverage/meeting_analysis_row_backend$transcribe__1_.coverage" NAME="transcribe Coverage Results" MODIFIED="1694511390835" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/openai" />
-    <SUITE FILE_PATH="coverage/meeting_analysis_row_backend$openmmlab.coverage" NAME="yolox Coverage Results" MODIFIED="1694494518955" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/meeting_analysis_row_backend$annotate_interruption.coverage" NAME="annotate_interruption Coverage Results" MODIFIED="1694444366082" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/meeting_analysis_row_backend$yolox.coverage" NAME="yolox Coverage Results" MODIFIED="1695045961630" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/meeting_analysis_row_backend$flask_meeting_service.coverage" NAME="flask_meeting_service Coverage Results" MODIFIED="1698804776216" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/meeting_analysis_row_backend$test__1_.coverage" NAME="test Coverage Results" MODIFIED="1694417850999" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/meeting_analysis_row_backend$openmmlab.coverage" NAME="yolox Coverage Results" MODIFIED="1694494518955" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/meeting_analysis_row_backend$test.coverage" NAME="test Coverage Results" MODIFIED="1694445342910" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/meeting_analysis_row_backend$transcribe__1_.coverage" NAME="transcribe Coverage Results" MODIFIED="1694511390835" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/openai" />
+    <SUITE FILE_PATH="coverage/meeting_analysis_row_backend$whisper.coverage" NAME="transcribe Coverage Results" MODIFIED="1694506938862" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/whisper" />
+    <SUITE FILE_PATH="coverage/meeting_analysis_row_backend$flask_meeting_service.coverage" NAME="flask_meeting_service Coverage Results" MODIFIED="1703363245837" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/meeting_analysis_row_backend$token.coverage" NAME="token Coverage Results" MODIFIED="1694446325351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/openmmlab" />
+    <SUITE FILE_PATH="coverage/meeting_analysis_row_backend$annotate_interruption.coverage" NAME="annotate_interruption Coverage Results" MODIFIED="1694444366082" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/meeting_analysis_row_backend$send_email_all.coverage" NAME="send_email_all Coverage Results" MODIFIED="1703361134783" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/meeting_analysis_row_backend$yolox.coverage" NAME="yolox Coverage Results" MODIFIED="1695045961630" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://F:/baobao/WorkInLab/THU_STD_HW-main/test.py">

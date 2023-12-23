@@ -2,7 +2,7 @@ import json
 from datetime import *
 
 import pymssql
-from flask import Flask, jsonify
+from flask import Flask
 from flask.ctx import _request_ctx_stack
 from flask_cors import CORS
 from flask_restful import Api, Resource
@@ -17,7 +17,6 @@ app = Flask(__name__)
 api = Api(app)
 CORS(app, resources=r'/*')
 
-
 database = 'CN_FstHMST_CyberTA'
 host = '47.103.13.21'
 user = 'sa'
@@ -29,6 +28,7 @@ password = 'chenniao'
 conn = pymssql.connect(server=host, user=user, password=password, database=database)
 cursor = conn.cursor()
 
+
 class getonlineid(Resource):
     def get(self):
         return "get ok"
@@ -39,14 +39,15 @@ class getonlineid(Resource):
         # dic = json.loads(new_request.data.decode('utf-8'))
         # print(dic)
         try:
-            had = [59,51,53,50,49,58,54]
+            had = [59, 51, 53, 50, 49, 58, 54]
             nums = []
             for a in had:
                 con = pymssql.connect(server=host, user=user, password=password, database=database)
                 cur = con.cursor()
                 now = datetime.now()
                 out_date = (now + timedelta(minutes=-5)).strftime("%Y-%m-%d %H:%M:%S")
-                sql ="select count(ID) as times from I_Emotion where StudentId ='" + str(a+1)+"' and Time > '" + out_date + "'"
+                sql = "select count(ID) as times from I_Emotion where StudentId ='" + str(
+                    a + 1) + "' and Time > '" + out_date + "'"
                 print(sql)
                 cur.execute(sql)
                 resList = cur.fetchall()
@@ -77,6 +78,7 @@ class getonlineid(Resource):
 
         return response
 
+
 class getName(Resource):
     def get(self):
 
@@ -95,7 +97,7 @@ class getName(Resource):
         try:
             con = pymssql.connect(server=host, user=user, password=password, database=database)
             cur = con.cursor()
-            sql ="select RealName from I_Users where ID ='" + str(id)+"'"
+            sql = "select RealName from I_Users where ID ='" + str(id) + "'"
             print(sql)
             cur.execute(sql)
             resList = cur.fetchall()
@@ -109,6 +111,7 @@ class getName(Resource):
         }
 
         return response
+
 
 class getUserInfo(Resource):
     def get(self):
@@ -124,24 +127,26 @@ class getUserInfo(Resource):
         try:
             con = pymssql.connect(server=host, user=user, password=password, database=database)
             cur = con.cursor()
-            sql ="select * from M_paticipater where name ='" + str(name)+"'"
+            sql = "select * from M_paticipater where name ='" + str(name) + "'"
             print(sql)
             cur.execute(sql)
             resList = cur.fetchall()
             con.commit()
             con.close()
             steps = []
-            for (name, stuid,role,ispermanent,ID,pd,email,remark) in resList:
-                step = {"name": name, "stuid": stuid, "role": role, "ispermanent": ispermanent, "ID": ID, "pd" : pd, "email" : email, "remark" : remark}
+            for (name, stuid, role, ispermanent, ID, pd, email, remark) in resList:
+                step = {"name": name, "stuid": stuid, "role": role, "ispermanent": ispermanent, "ID": ID, "pd": pd,
+                        "email": email, "remark": remark}
                 steps.append(step)
             # print(steps)
         except Exception as e:
             raise e
         response = {
-            'reslist':steps,
+            'reslist': steps,
         }
 
         return response
+
 
 class getId(Resource):
     def get(self):
@@ -161,7 +166,7 @@ class getId(Resource):
         try:
             con = pymssql.connect(server=host, user=user, password=password, database=database)
             cur = con.cursor()
-            sql ="select ID from I_Users where RealName ='" + str(realname)+"'"
+            sql = "select ID from I_Users where RealName ='" + str(realname) + "'"
             print(sql)
             cur.execute(sql)
             resList = cur.fetchall()
@@ -210,7 +215,8 @@ class emotion(Resource):
             if id in nums:
                 con = pymssql.connect(server=host, user=user, password=password, database=database)
                 cur = con.cursor()
-                sql = "select top 1 angry,disgusted,fearful,happy,sad,surprised,neutral,Time from I_Emotion where StudentId = '" + str(id+1) + "'order by id desc"
+                sql = "select top 1 angry,disgusted,fearful,happy,sad,surprised,neutral,Time from I_Emotion where StudentId = '" + str(
+                    id + 1) + "'order by id desc"
                 cur.execute(sql)
                 resList = cur.fetchall()
                 con.commit()
@@ -235,6 +241,7 @@ class emotion(Resource):
             raise e
 
         return response
+
 
 class action(Resource):
     def get(self):
@@ -269,14 +276,15 @@ class action(Resource):
             if id in nums:
                 con = pymssql.connect(server=host, user=user, password=password, database=database)
                 cur = con.cursor()
-                sql ="select top 1 EatDrink,sleep,Phone,Rehand,Calling,Study,Time from I_Action where StudentId = '" + str(id+1) + "'order by id desc"
+                sql = "select top 1 EatDrink,sleep,Phone,Rehand,Calling,Study,Time from I_Action where StudentId = '" + str(
+                    id + 1) + "'order by id desc"
                 cur.execute(sql)
                 resList = cur.fetchall()
                 con.commit()
                 con.close()
                 rowAsList = [x for x in resList[0]]
                 response = {
-                    'success' : 1,
+                    'success': 1,
                     'eatdrink': rowAsList[0],
                     'sleep': rowAsList[1],
                     'phone1': rowAsList[2],
@@ -285,9 +293,9 @@ class action(Resource):
                     'study': rowAsList[5],
                     'time': str(rowAsList[6])
                 }
-            else :
+            else:
                 response = {
-                    'success' : 0,
+                    'success': 0,
                 }
         except Exception as e:
             raise e
@@ -328,7 +336,8 @@ class conscore(Resource):
             if id in nums:
                 con = pymssql.connect(server=host, user=user, password=password, database=database)
                 cur = con.cursor()
-                sql ="select top 1 conScore,Time from I_Concentration where StudentId = '" + str(id + 1) + "'order by id desc"
+                sql = "select top 1 conScore,Time from I_Concentration where StudentId = '" + str(
+                    id + 1) + "'order by id desc"
                 cur.execute(sql)
                 resList = cur.fetchall()
                 con.commit()
@@ -339,7 +348,7 @@ class conscore(Resource):
                     'conScore': rowAsList[0],
                     'time': str(rowAsList[1])
                 }
-            else :
+            else:
                 response = {
                     'success': 0,
                 }
@@ -347,6 +356,7 @@ class conscore(Resource):
             raise e
 
         return response
+
 
 class newmeeting(Resource):
     def get(self):
@@ -368,34 +378,40 @@ class newmeeting(Resource):
         link = dic['link']
         #  会议号
         number = dic['number']
-
-        # pati = dic['pati']
-
-        # data = request.files
-        # print("start...")
-        # print(type(data))
-        # file = data['file']
-        # print(file.filename)
-        # print(request.headers)
-        # # 文件写入磁盘
-        # file.save(file.filename)
-        # print("end...")
-
-        # print(pati)
-        # patistr = ','.join(pati)
-
         try:
             con = pymssql.connect(server=host, user=user, password=password, database=database)
             cur = con.cursor()
-            sql = "insert into M_Meeting (theme,hoster,date,link,number) values ('" + \
-                  theme + "','" + hoster + "','" + str(selectDay) + "','" + link + "','" +number +"')"
+            # sql = "insert into M_Meeting (theme,hoster,date,link,number) values ('" + \
+            #       theme + "','" + hoster + "','" + str(selectDay) + "','" + link + "','" +number +"')"
+            # cur.execute(sql)
+
+            # 构建参数化的 SQL 语句
+            sql = """
+            INSERT INTO M_Meeting (theme, hoster, date, link, number) 
+            VALUES (%s, %s, %s, %s, %s);
+            SELECT SCOPE_IDENTITY();
+            """
+            # 执行 SQL 语句
+            cur.execute(sql, (theme, hoster, selectDay, link, number))
+            # 获取插入的 会议ID
+            inserted_id = int(cur.fetchone()[0])
+
+            # 构建参数化的 SQL 语句，查询常驻人员创建
+            sql = "SELECT * FROM M_paticipater WHERE ispermanent = 1"
+            # 执行 SQL 语句
             cur.execute(sql)
+            # 获取查询结果
+            rows = cur.fetchall()
+            # 处理查询结果
+            sql = """
+            INSERT INTO M_MeetingProcess (curmeeting, people, role, meetingid) 
+            VALUES (%s, %s, %s, %s);
+            """
+            for row in rows:
+                cur.execute(sql, (theme, row[0], row[2], inserted_id))
+            # 提交事务
             con.commit()
             con.close()
-            # rowAsList = [x for x in resList[0]]
-            # print(resList)
-            # print(rowAsList)
-            # sendInvite(pati, "http://124.222.217.145:8082/login",theme,hoster,str(selectDay))
         except Exception as e:
             raise e
         response = {
@@ -404,6 +420,7 @@ class newmeeting(Resource):
 
         return response
         # return "ok"
+
 
 class invitePati(Resource):
     def get(self):
@@ -415,8 +432,9 @@ class invitePati(Resource):
         new_request = ctx.request
         dic = json.loads(new_request.data.decode('utf-8'))
 
-
         pati = dic['pati']
+        print("pati__________-")
+        print(pati)
         try:
             con = pymssql.connect(server=host, user=user, password=password, database=database)
             cur = con.cursor()
@@ -433,26 +451,20 @@ class invitePati(Resource):
             raise e
         # 创建一个字典来存储name和email的对应关系
         name_email_dict = {}
-
         # 遍历pati列表
         for person in pati:
             name = person['name']
-            # 在resList中查找匹配的email
-            for result in resList:
-                if name == result[0]:
-                    email = result[1]
-                    name_email_dict[name] = email
-                    break  # 找到匹配的email后，可以跳出内层循环，继续处理下一个name
+            email = person['email']
+            name_email_dict[name] = email
         meeting = getCurrentmeeting.post(self)['reslist'][0]
-        print("meeting____")
-        print(meeting)
+        print("name_lsit:")
+        print(name_email_dict)
         theme = meeting['Theme']
         hoster = meeting['Hoster']
         date = meeting['Date']
         link = meeting['link']
         number = meeting['number']
-        print(name_email_dict)
-        sendInvite(name_email_dict, "http://124.222.217.145:8082",theme,hoster,date,link,number)
+        sendInvite(name_email_dict, "http://124.222.217.145:8082", theme, hoster, date, link, number)
 
         # 打印name和email对应关系
 
@@ -462,6 +474,8 @@ class invitePati(Resource):
 
         # return response
         # return "ok"
+
+
 class newProcess(Resource):
     def get(self):
 
@@ -486,16 +500,14 @@ class newProcess(Resource):
         paper = dic['paper']
         nextweekplan = dic['nextweekplan']
         completion = dic['completion']
+        id = dic['id']
         try:
             con = pymssql.connect(server=host, user=user, password=password, database=database)
             cur = con.cursor()
-            sql = "insert into M_MeetingProcess (curmeeting, topicName, time, people, role, meetingid, participation, participation_mode, project, experiment, algorithm, paper, nextweekplan, completion) values ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(
-                curmeeting, topicName, time, people, role, meetingid, participation, participation_mode, project,
-                experiment, algorithm, paper, nextweekplan, completion)
-
-            print(sql)
-
-            cur.execute(sql)
+            sql = "UPDATE M_MeetingProcess SET curmeeting = %s, topicName = %s, time = %s, people = %s, role = %s, meetingid = %s, participation_mode = %s, project = %s, experiment = %s, algorithm = %s, paper = %s, nextweekplan = %s, completion = %s WHERE id = %s"
+            params = (curmeeting, topicName, time, people, role, meetingid, participation_mode, project,
+                      experiment, algorithm, paper, nextweekplan, completion, id)
+            cur.execute(sql, params)
             con.commit()
             con.close()
         except Exception as e:
@@ -505,6 +517,7 @@ class newProcess(Resource):
         }
 
         return response
+
 
 class delProcess(Resource):
     def get(self):
@@ -584,7 +597,7 @@ class getPati(Resource):
             # cur = con.cursor()
             con = pymssql.connect(server=host, user=user, password=password, database=database)
             cur = con.cursor()
-            sql ="SELECT * FROM M_paticipater ORDER BY CASE role WHEN '教师' THEN 1 WHEN '博士生' THEN 2 WHEN '研究生' THEN 3 WHEN '本科生' THEN 4 ELSE 5 END ASC"
+            sql = "SELECT * FROM M_paticipater ORDER BY CASE role WHEN '教师' THEN 1 WHEN '博士生' THEN 2 WHEN '研究生' THEN 3 WHEN '本科生' THEN 4 ELSE 5 END ASC"
             cur.execute(sql)
             # resList = cur.fetchall()
             # con.commit()
@@ -606,10 +619,50 @@ class getPati(Resource):
         except Exception as e:
             raise e
         response = {
-            'reslist':steps,
+            'reslist': steps,
         }
 
         return response
+
+class setOnePati(Resource):
+    def get(self):
+
+        return "get ok"
+
+    def post(self):
+        ctx = _request_ctx_stack.top.copy()
+        new_request = ctx.request
+        dic = json.loads(new_request.data.decode('utf-8'))['form']
+        print(dic)
+        id = dic['id']
+        stuid = dic['stuid']
+        name = dic['name']
+        role = dic['role']
+        email = dic['email']
+        remark = dic['remark']
+        pd = dic['pd']
+        ispermanent = dic['ispermanent']
+        try:
+            con = pymssql.connect(server=host, user=user, password=password, database=database)
+            cur = con.cursor()
+            # 更新语句，设置所有需要更新的字段
+            sql = """
+                UPDATE M_paticipater 
+                SET stuid = %s, name = %s, role = %s, email = %s, ispermanent = %s, remark = %s, pd = %s
+                WHERE id = %s
+                """
+            values = (stuid, name, role, email, ispermanent, remark, pd, id)
+            cur.execute(sql, values)
+            con.commit()
+            con.close()
+        except Exception as e:
+            raise e
+        response = {
+            "success": 1,
+        }
+
+        return response
+
 
 class getPatistate(Resource):
     def get(self):
@@ -624,23 +677,24 @@ class getPatistate(Resource):
         try:
             con = pymssql.connect(server=host, user=user, password=password, database=database)
             cur = con.cursor()
-            sql ="select * from M_paticipater order by id asc"
+            sql = "select * from M_paticipater order by id asc"
             cur.execute(sql)
             resList = cur.fetchall()
             con.commit()
             con.close()
             steps = []
-            for (name, stuid,role,ispermanent,id,pd) in resList:
+            for (name, stuid, role, ispermanent, id, pd) in resList:
                 step = {"id": int(id), "name": name, "stuid": int(stuid), "role": role, "ispermanent": int(ispermanent)}
                 steps.append(step)
             print(steps)
         except Exception as e:
             raise e
         response = {
-            'reslist':steps,
+            'reslist': steps,
         }
 
         return response
+
 
 class getListorymeeting(Resource):
     def get(self):
@@ -655,7 +709,7 @@ class getListorymeeting(Resource):
         try:
             con = pymssql.connect(server=host, user=user, password=password, database=database)
             cur = con.cursor()
-            sql ="select * from M_Meeting order by id desc"
+            sql = "select * from M_Meeting order by id desc"
             cur.execute(sql)
             resList = cur.fetchall()
             column_names = [desc[0] for desc in cur.description]
@@ -669,10 +723,11 @@ class getListorymeeting(Resource):
         except Exception as e:
             raise e
         response = {
-            'reslist':steps,
+            'reslist': steps,
         }
 
         return response
+
 
 # 获取最近的一次会议信息
 class getCurrentmeeting(Resource):
@@ -688,7 +743,7 @@ class getCurrentmeeting(Resource):
         try:
             con = pymssql.connect(server=host, user=user, password=password, database=database)
             cur = con.cursor()
-            sql ="select TOP 1 Theme,Date,Hoster,id,pati,url,link,number from M_Meeting order by id desc "
+            sql = "select TOP 1 Theme,Date,Hoster,id,pati,url,link,number from M_Meeting order by id desc "
             cur.execute(sql)
             resList = cur.fetchall()
             column_names = [desc[0] for desc in cur.description]
@@ -702,13 +757,10 @@ class getCurrentmeeting(Resource):
         except Exception as e:
             raise e
         response = {
-            'reslist':steps,
+            'reslist': steps,
         }
 
         return response
-
-
-
 
 
 class sendEmailAll(Resource):
@@ -722,10 +774,11 @@ class sendEmailAll(Resource):
         except Exception as e:
             raise e
         response = {
-            'success':1,
+            'success': 1,
         }
 
         return response
+
 
 class getmeetinginfobytheme(Resource):
     def get(self):
@@ -742,23 +795,34 @@ class getmeetinginfobytheme(Resource):
         try:
             con = pymssql.connect(server=host, user=user, password=password, database=database)
             cur = con.cursor()
-            sql ="select * from M_Meeting where theme = '" + theme + "' order by id asc"
+            sql = "select * from M_Meeting where theme = '" + theme + "' order by id asc"
             cur.execute(sql)
             resList = cur.fetchall()
             con.commit()
             con.close()
             steps = []
-            for (Theme, Date,Hoster,id,pati,url,score,summary,chapter1,chapter2,chapter3,chapter4,chapter5,chapter6,engagement,sentiment,reason1,reason2,reason3,tips,highlight1,highlight1url,highlight2,highlight2url,highlight3,highlight3url,link,number) in resList:
-                step = {"id": id, "theme": Theme, "date": str(Date), "hoster": Hoster, "pati": str(pati), "url" : str(url), "score": str(score), "summary": str(summary), "chapter1": str(chapter1), "chapter2": str(chapter2), "chapter3": str(chapter3), "chapter4": str(chapter4), "chapter5": str(chapter5), "chapter6": str(chapter6), "engagement": str(engagement), "sentiment": str(sentiment), "reason1": str(reason1), "reason2": str(reason2), "reason3": str(reason3), "tips": str(tips), "highlight1": str(highlight1), "highlight1url": str(highlight1url), "highlight2": str(highlight2), "highlight2url": str(highlight2url), "highlight3": str(highlight3), "highlight3url": str(highlight3url)}
+            for (Theme, Date, Hoster, id, pati, url, score, summary, chapter1, chapter2, chapter3, chapter4, chapter5,
+                 chapter6, engagement, sentiment, reason1, reason2, reason3, tips, highlight1, highlight1url,
+                 highlight2, highlight2url, highlight3, highlight3url, link, number) in resList:
+                step = {"id": id, "theme": Theme, "date": str(Date), "hoster": Hoster, "pati": str(pati),
+                        "url": str(url), "score": str(score), "summary": str(summary), "chapter1": str(chapter1),
+                        "chapter2": str(chapter2), "chapter3": str(chapter3), "chapter4": str(chapter4),
+                        "chapter5": str(chapter5), "chapter6": str(chapter6), "engagement": str(engagement),
+                        "sentiment": str(sentiment), "reason1": str(reason1), "reason2": str(reason2),
+                        "reason3": str(reason3), "tips": str(tips), "highlight1": str(highlight1),
+                        "highlight1url": str(highlight1url), "highlight2": str(highlight2),
+                        "highlight2url": str(highlight2url), "highlight3": str(highlight3),
+                        "highlight3url": str(highlight3url)}
                 steps.append(step)
             print(steps)
         except Exception as e:
             raise e
         response = {
-            'reslist':steps,
+            'reslist': steps,
         }
 
         return response
+
 
 class getMeetingProcessData(Resource):
     def get(self):
@@ -774,9 +838,10 @@ class getMeetingProcessData(Resource):
         try:
             con = pymssql.connect(server=host, user=user, password=password, database=database)
             cur = con.cursor()
-            sql ="select * from M_MeetingProcess where meetingid = '" + str(meetingid) + "' order by id asc "
+            sql = "select * from M_MeetingProcess where meetingid = '" + str(meetingid) + "' order by id asc "
             cur.execute(sql)
             resList = cur.fetchall()
+            print(resList)
             column_names = [desc[0] for desc in cur.description]
             con.commit()
             con.close()
@@ -784,13 +849,80 @@ class getMeetingProcessData(Resource):
             for row in resList:
                 step = {column_names[i]: row[i] for i in range(len(column_names))}
                 steps.append(step)
-            print(steps)
         except Exception as e:
             raise e
         response = {
-            'reslist':steps,
+            'reslist': steps,
         }
 
+        return response
+
+
+class getMyProcessData(Resource):
+    def get(self):
+
+        return "get ok"
+
+    def post(self):
+        ctx = _request_ctx_stack.top.copy()
+        new_request = ctx.request
+        dic = json.loads(new_request.data.decode('utf-8'))
+        print(dic)
+        meetingid = dic['meetingid']
+        people = dic['people']
+        try:
+            con = pymssql.connect(server=host, user=user, password=password, database=database)
+            cur = con.cursor()
+            sql = """
+            SELECT * FROM M_MeetingProcess 
+            WHERE meetingid = %s AND people = %s 
+            ORDER BY id ASC
+            """
+            cur.execute(sql, (meetingid, people))
+            resList = cur.fetchall()
+            column_names = [desc[0] for desc in cur.description]
+            result = [dict(zip(column_names, row)) for row in resList]
+            print(result)
+            con.commit()
+            con.close()
+        except Exception as e:
+            raise e
+        response = {
+            'reslist': result,
+        }
+        return response
+
+
+class setMyProcessData(Resource):
+    def get(self):
+
+        return "get ok"
+
+    def post(self):
+        ctx = _request_ctx_stack.top.copy()
+        new_request = ctx.request
+        dic = json.loads(new_request.data.decode('utf-8'))
+        print(dic)
+        id = dic['id']
+        isaccept = dic['isaccept']
+        try:
+            con = pymssql.connect(server=host, user=user, password=password, database=database)
+            cur = con.cursor()
+            # 构建参数化的 SQL 语句
+            sql = """
+            UPDATE M_MeetingProcess
+            SET participation = %s
+            WHERE id = %s;
+            """
+            # 执行 SQL 语句
+            cur.execute(sql, (isaccept, id))
+            con.commit()
+            con.close()
+        except Exception as e:
+            raise e
+        response = {
+            'reslist': 1,
+        }
         return response
 
 
@@ -804,12 +936,12 @@ class login(Resource):
         new_request = ctx.request
         dic = json.loads(new_request.data.decode('utf-8'))
         print(dic)
-        username=dic['userName']
-        pd=dic['password']
+        username = dic['userName']
+        pd = dic['password']
         try:
             con = pymssql.connect(server=host, user=user, password=password, database=database)
             cur = con.cursor()
-            sql ="select pd,role from M_paticipater where name = '" + username + "'"
+            sql = "select pd,role from M_paticipater where name = '" + username + "'"
             cur.execute(sql)
             resList = cur.fetchall()
             con.commit()
@@ -857,7 +989,7 @@ class login(Resource):
 #         return jsonres
 
 
-class getCurrAndNextHost(Resource): #获得下一个主持人
+class getCurrAndNextHost(Resource):  # 获得下一个主持人
     def get(self):
         try:
             con = pymssql.connect(server=host, user=user, password=password, database=database)
@@ -871,7 +1003,7 @@ class getCurrAndNextHost(Resource): #获得下一个主持人
             raise e
         print(resList)
         response = {
-            'reslist':resList,
+            'reslist': resList,
         }
 
         return response
@@ -902,36 +1034,38 @@ class addHost(Resource):
             raise e
         print(resList)
         response = {
-            'reslist':resList,
+            'reslist': resList,
         }
 
         return response
 
-api.add_resource(sendEmailAll,'/sendEmailAll')
-api.add_resource(getName,'/getName')
-api.add_resource(getUserInfo,'/getUserInfo')
-api.add_resource(getId,'/getId')
-api.add_resource(getListorymeeting,'/getListorymeeting')
-api.add_resource(getPatistate,'/getPatistate')
+
+api.add_resource(sendEmailAll, '/sendEmailAll')
+api.add_resource(getName, '/getName')
+api.add_resource(getUserInfo, '/getUserInfo')
+api.add_resource(getId, '/getId')
+api.add_resource(getListorymeeting, '/getListorymeeting')
+api.add_resource(getPatistate, '/getPatistate')
 api.add_resource(getPati, '/getPati')
+api.add_resource(setOnePati, '/setOnePati')
 api.add_resource(newpati, '/newpati')
 api.add_resource(newmeeting, '/newmeeting')
 api.add_resource(invitePati, '/invitePati')
-api.add_resource(getCurrentmeeting,'/getCurrentmeeting')
-api.add_resource(newProcess,'/newProcess')
-api.add_resource(delProcess,'/delProcess')
-api.add_resource(getMeetingProcessData,'/getMeetingProcessData')
-api.add_resource(getCurrAndNextHost,'/getCurrAndNextHost')
-api.add_resource(addHost,'/addHost')
-
-
+api.add_resource(getCurrentmeeting, '/getCurrentmeeting')
+api.add_resource(newProcess, '/newProcess')
+api.add_resource(delProcess, '/delProcess')
+api.add_resource(getMeetingProcessData, '/getMeetingProcessData')
+api.add_resource(getMyProcessData, '/getMyProcessData')
+api.add_resource(setMyProcessData, '/setMyProcessData')
+api.add_resource(getCurrAndNextHost, '/getCurrAndNextHost')
+api.add_resource(addHost, '/addHost')
 
 api.add_resource(getonlineid, '/getonlineid')
 api.add_resource(action, '/getActionById')
 api.add_resource(conscore, '/getConscoreById')
 api.add_resource(emotion, '/getEmotionById')
-api.add_resource(getmeetinginfobytheme,'/getmeetinginfobytheme')
-api.add_resource(login,'/login')
+api.add_resource(getmeetinginfobytheme, '/getmeetinginfobytheme')
+api.add_resource(login, '/login')
 # api.add_resource(getSpeaker,'/getSpeaker')
 #
 # if __name__== '__main__':
