@@ -624,6 +624,7 @@ class getPati(Resource):
 
         return response
 
+
 class setOnePati(Resource):
     def get(self):
 
@@ -680,11 +681,12 @@ class getPatistate(Resource):
             sql = "select * from M_paticipater order by id asc"
             cur.execute(sql)
             resList = cur.fetchall()
+            column_names = [desc[0] for desc in cur.description]
             con.commit()
             con.close()
             steps = []
-            for (name, stuid, role, ispermanent, id, pd) in resList:
-                step = {"id": int(id), "name": name, "stuid": int(stuid), "role": role, "ispermanent": int(ispermanent)}
+            for row in resList:
+                step = {column_names[i]: row[i] for i in range(len(column_names))}
                 steps.append(step)
             print(steps)
         except Exception as e:
