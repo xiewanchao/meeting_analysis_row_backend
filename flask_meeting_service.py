@@ -476,7 +476,7 @@ class invitePati(Resource):
         # return "ok"
 
 
-class newProcess(Resource):
+class updateProcess(Resource):
     def get(self):
 
         return "get ok"
@@ -500,13 +500,60 @@ class newProcess(Resource):
         paper = dic['paper']
         nextweekplan = dic['nextweekplan']
         completion = dic['completion']
+        start_time = dic['start_time']
+        end_time = dic['end_time']
         id = dic['id']
         try:
             con = pymssql.connect(server=host, user=user, password=password, database=database)
             cur = con.cursor()
-            sql = "UPDATE M_MeetingProcess SET curmeeting = %s, topicName = %s, time = %s, people = %s, role = %s, meetingid = %s, participation_mode = %s, project = %s, experiment = %s, algorithm = %s, paper = %s, nextweekplan = %s, completion = %s WHERE id = %s"
+            sql = "UPDATE M_MeetingProcess SET curmeeting = %s, topicName = %s, time = %s, people = %s, role = %s, meetingid = %s, participation_mode = %s, project = %s, experiment = %s, algorithm = %s, paper = %s, nextweekplan = %s, completion = %s , start_time = %s, end_time = %s WHERE id = %s"
             params = (curmeeting, topicName, time, people, role, meetingid, participation_mode, project,
-                      experiment, algorithm, paper, nextweekplan, completion, id)
+                      experiment, algorithm, paper, nextweekplan, completion, start_time, end_time, id)
+            cur.execute(sql, params)
+            con.commit()
+            con.close()
+        except Exception as e:
+            raise e
+        response = {
+            "success": 1,
+        }
+
+        return response
+
+
+class newProcess(Resource):
+    def get(self):
+
+        return "get ok"
+
+    def post(self):
+        ctx = _request_ctx_stack.top.copy()
+        new_request = ctx.request
+        dic = json.loads(new_request.data.decode('utf-8'))['form']
+        print(dic)
+        curmeeting = dic['curmeeting']
+        topicName = dic['topicName']
+        time = dic['time']
+        people = dic['people']
+        role = dic['role']
+        meetingid = dic['meetingid']
+        # participation = dic['participation']
+        participation_mode = dic['participation_mode']
+        project = dic['project']
+        experiment = dic['experiment']
+        algorithm = dic['algorithm']
+        paper = dic['paper']
+        nextweekplan = dic['nextweekplan']
+        completion = dic['completion']
+        # id = dic['id']
+        try:
+            con = pymssql.connect(server=host, user=user, password=password, database=database)
+            cur = con.cursor()
+            sql = "INSERT INTO M_MeetingProcess (curmeeting, topicName, time, people, role, meetingid, participation_mode, project, experiment, algorithm, paper, nextweekplan, completion) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            params = (
+                curmeeting, topicName, time, people, role, meetingid, participation_mode, project, experiment,
+                algorithm,
+                paper, nextweekplan, completion)
             cur.execute(sql, params)
             con.commit()
             con.close()
@@ -532,8 +579,10 @@ class delProcess(Resource):
         try:
             con = pymssql.connect(server=host, user=user, password=password, database=database)
             cur = con.cursor()
-            sql = "DELETE FROM M_MeetingProcess WHERE id = " + str(id)
-            cur.execute(sql)
+            sql = "UPDATE M_MeetingProcess SET topicName = %s, time = %s, participation_mode = %s, project = %s, experiment = %s, algorithm = %s, paper = %s, nextweekplan = %s, completion = %s WHERE id = %s"
+            params = (None, None, None, None, None, None, None, None,
+                      None, id)
+            cur.execute(sql, params)
             con.commit()
             con.close()
         except Exception as e:
@@ -849,7 +898,13 @@ class getMeetingProcessData(Resource):
             con.close()
             steps = []
             for row in resList:
-                step = {column_names[i]: row[i] for i in range(len(column_names))}
+                step = {}
+                for i in range(len(column_names)):
+                    # 检查每个字段，如果是datetime类型，则转换为字符串
+                    if isinstance(row[i], datetime):
+                        step[column_names[i]] = row[i].strftime('%Y-%m-%d %H:%M:%S')
+                    else:
+                        step[column_names[i]] = row[i]
                 steps.append(step)
         except Exception as e:
             raise e
@@ -1042,6 +1097,100 @@ class addHost(Resource):
         return response
 
 
+class getQuestionnaire(Resource):
+    def post(self):
+        ctx = _request_ctx_stack.top.copy()
+        request_data = json.loads(ctx.request.data.decode('utf-8'))
+        meeting_id = request_data['meeting_id']
+
+        try:
+            con = pymssql.connect(server=host, user=user, password=password, database=database)
+            cur = con.cursor(as_dict=True)
+            cur.execute("SELECT * FROM dbo.M_Questionnaire WHERE meeting_id = %s", (meeting_id,))
+            questions = cur.fetchall()
+            con.close()
+        except Exception as e:
+            raise e
+
+        return {"questions": questions}
+
+class addQuestion(Resource):
+    def post(self):
+        ctx = _request_ctx_stack.top.copy()
+        request_data = json.loads(ctx.request.data.decode('utf-8'))
+        meeting_id = request_data['meeting_id']
+        question_text = request_data['question_text']
+
+        try:
+            con = pymssql.connect(server=host, user=user, password=password, database=database)
+            cur = con.cursor()
+            cur.execute("INSERT INTO dbo.M_Questionnaire (meeting_id, question_text) VALUES (%s, %s)", (meeting_id, question_text))
+            con.commit()
+            con.close()
+        except Exception as e:
+            raise e
+
+        return {"success": 1}
+
+class updateQuestion(Resource):
+    def post(self):
+        ctx = _request_ctx_stack.top.copy()
+        request_data = json.loads(ctx.request.data.decode('utf-8'))
+        question_id = request_data['question_id']
+        question_text = request_data['question_text']
+
+        try:
+            con = pymssql.connect(server=host, user=user, password=password, database=database)
+            cur = con.cursor()
+            cur.execute("UPDATE dbo.M_Questionnaire SET question_text = %s WHERE question_id = %s", (question_text, question_id))
+            con.commit()
+            con.close()
+        except Exception as e:
+            raise e
+
+        return {"success": 1}
+
+class delQuestion(Resource):
+    def post(self):
+        ctx = _request_ctx_stack.top.copy()
+        request_data = json.loads(ctx.request.data.decode('utf-8'))
+        question_id = request_data['question_id']
+
+        try:
+            con = pymssql.connect(server=host, user=user, password=password, database=database)
+            cur = con.cursor()
+            cur.execute("DELETE FROM dbo.M_Questionnaire WHERE question_id = %s", (question_id,))
+            con.commit()
+            con.close()
+        except Exception as e:
+            raise e
+
+        return {"success": 1}
+
+class addAnswer(Resource):
+    def post(self):
+        ctx = _request_ctx_stack.top.copy()
+        request_data = json.loads(ctx.request.data.decode('utf-8'))
+
+        meeting_id = request_data['answerInfo']['meeting_id']
+        paticipater_id = request_data['answerInfo']['paticipater_id']
+        process_id = request_data['answerInfo']['process_id']
+
+        answerData = request_data['answerData']
+
+        try:
+            con = pymssql.connect(server=host, user=user, password=password, database=database)
+            cur = con.cursor()
+            sql = "INSERT INTO dbo.M_answer (question_id, meeting_id,paticipater_id,process_id,answer) VALUES (%s, %s, %s, %s, %s)"
+            for answer in answerData:
+                cur.execute(sql, (answer['question_id'], meeting_id,paticipater_id,process_id,answer['answer']))
+            con.commit()
+            con.close()
+        except Exception as e:
+            raise e
+
+        return {"success": 1}
+
 api.add_resource(sendEmailAll, '/sendEmailAll')
 api.add_resource(getName, '/getName')
 api.add_resource(getUserInfo, '/getUserInfo')
@@ -1054,6 +1203,7 @@ api.add_resource(newpati, '/newpati')
 api.add_resource(newmeeting, '/newmeeting')
 api.add_resource(invitePati, '/invitePati')
 api.add_resource(getCurrentmeeting, '/getCurrentmeeting')
+api.add_resource(updateProcess, '/updateProcess')
 api.add_resource(newProcess, '/newProcess')
 api.add_resource(delProcess, '/delProcess')
 api.add_resource(getMeetingProcessData, '/getMeetingProcessData')
@@ -1061,6 +1211,13 @@ api.add_resource(getMyProcessData, '/getMyProcessData')
 api.add_resource(setMyProcessData, '/setMyProcessData')
 api.add_resource(getCurrAndNextHost, '/getCurrAndNextHost')
 api.add_resource(addHost, '/addHost')
+
+api.add_resource(getQuestionnaire, '/getQuestionnaire')
+api.add_resource(addQuestion, '/addQuestion')
+api.add_resource(updateQuestion, '/updateQuestion')
+api.add_resource(delQuestion, '/delQuestion')
+
+api.add_resource(addAnswer, '/addAnswer')
 
 api.add_resource(getonlineid, '/getonlineid')
 api.add_resource(action, '/getActionById')
